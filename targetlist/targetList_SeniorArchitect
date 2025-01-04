@@ -1,4 +1,4 @@
-# git 问题
+#1  git 问题
 fatal: unable to access 'https://github.com/DaiHuiyu/SeniorArchitect.git/': Failed to connect to github.com port 443 after 21071 ms: Timed out
 20:28:46.697: [SeniorArchitect] git -c credential.helper= -c core.quotepath=false -c log.showSignature=false push --progress --porcelain origin refs/heads/targetList:targetList
 fatal: unable to access 'https://github.com/DaiHuiyu/SeniorArchitect.git/': Failed to connect to github.com port 443 after 21066 ms: Timed out
@@ -12,4 +12,16 @@ fatal: unable to access 'https://github.com/DaiHuiyu/SeniorArchitect.git/': Fail
 fatal: unable to access 'https://github.com/DaiHuiyu/SeniorArchitect.git/': Failed to connect to 127.0.0.1 port 7890 after 2073 ms: Connection refused
 20:34:26.927: [SeniorArchitect] git -c credential.helper= -c core.quotepath=false -c log.showSignature=false add --ignore-errors -A -- targetlist/targetList_SeniorArchitect
 
-解决办法:
+解决办法: https://www.cnblogs.com/luoyihao/p/17211773.html
+1.查看是否使用代理
+git config --global http.proxy
+2.取消代理
+git config --global --unset http.proxy
+即可成功修改。
+
+但是，我在拉取代码时又报错，git提示Can't update(master has no tracked branch)，原因是本地分支和远程分支没有关联，需要关联远程分支。
+解决方法为执行
+git push --set-upstream origin master
+这样本地分支就和远程master分支关联了。
+
+
