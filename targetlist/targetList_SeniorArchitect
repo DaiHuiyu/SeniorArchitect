@@ -1,0 +1,15 @@
+# git 问题
+fatal: unable to access 'https://github.com/DaiHuiyu/SeniorArchitect.git/': Failed to connect to github.com port 443 after 21071 ms: Timed out
+20:28:46.697: [SeniorArchitect] git -c credential.helper= -c core.quotepath=false -c log.showSignature=false push --progress --porcelain origin refs/heads/targetList:targetList
+fatal: unable to access 'https://github.com/DaiHuiyu/SeniorArchitect.git/': Failed to connect to github.com port 443 after 21066 ms: Timed out
+20:29:14.109: [SeniorArchitect] git -c credential.helper= -c core.quotepath=false -c log.showSignature=false push --progress --porcelain origin refs/heads/targetList:targetList
+fatal: unable to access 'https://github.com/DaiHuiyu/SeniorArchitect.git/': HTTP/2 stream 1 was not closed cleanly before end of the underlying stream
+20:31:40.361: [SeniorArchitect] git -c credential.helper= -c core.quotepath=false -c log.showSignature=false push --progress --porcelain origin refs/heads/targetList:targetList
+fatal: unable to access 'https://github.com/DaiHuiyu/SeniorArchitect.git/': HTTP/2 stream 1 was not closed cleanly before end of the underlying stream
+20:32:44.333: [SeniorArchitect] git -c credential.helper= -c core.quotepath=false -c log.showSignature=false push --progress --porcelain origin refs/heads/targetList:targetList
+fatal: unable to access 'https://github.com/DaiHuiyu/SeniorArchitect.git/': Failed to connect to 127.0.0.1 port 7890 after 2078 ms: Connection refused
+20:33:35.034: [SeniorArchitect] git -c credential.helper= -c core.quotepath=false -c log.showSignature=false push --progress --porcelain origin refs/heads/targetList:targetList
+fatal: unable to access 'https://github.com/DaiHuiyu/SeniorArchitect.git/': Failed to connect to 127.0.0.1 port 7890 after 2073 ms: Connection refused
+20:34:26.927: [SeniorArchitect] git -c credential.helper= -c core.quotepath=false -c log.showSignature=false add --ignore-errors -A -- targetlist/targetList_SeniorArchitect
+
+解决办法:
