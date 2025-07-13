@@ -37,22 +37,22 @@ Qwen模型地址:  https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1
 学习笔记:
 常见聊天机器人：
 DeepSeek
-    由杭州深度求索人工智能基础技术研究有限公司研发,  其核心优势在于性能卓越、低成本开发和开源策略
+由杭州深度求索人工智能基础技术研究有限公司研发,  其核心优势在于性能卓越、低成本开发和开源策略
 Kimi智能助手
-    由月之暗面科技有限公司开发，支持超长上下文（最高200万汉字），适合长文本处理和复杂对话。
+由月之暗面科技有限公司开发，支持超长上下文（最高200万汉字），适合长文本处理和复杂对话。
 通义千问
-    阿里云推出的人工智能助手，适合办公场景，提供高效的信息处理能力。
+阿里云推出的人工智能助手，适合办公场景，提供高效的信息处理能力。
 讯飞星火
-    科大讯飞出品，支持语音输入和语音朗读回复，适合语音交互场景。
+科大讯飞出品，支持语音输入和语音朗读回复，适合语音交互场景。
 豆包
-    字节跳动推出，支持抖音和今日头条的内容信息获取，适合内容创作和信息检索。
+字节跳动推出，支持抖音和今日头条的内容信息获取，适合内容创作和信息检索。
 
 05-私有化部署实战项目架构分析     视频耗时( 04:55 )
 学习笔记:
 不管是个人电脑还是云平台，搭建聊天机器人的步骤为：
 1. 后端和模型部署。
-个人电脑: 后端使用Ollama框架搭配deepseek-r1、qwen模型
-云平台: 后端使用LangChain框架搭配阿里云百炼平台、通义千问
+   个人电脑: 后端使用Ollama框架搭配deepseek-r1、qwen模型
+   云平台: 后端使用LangChain框架搭配阿里云百炼平台、通义千问
 2. 前端部署，个人电脑或云平台均可使用Streamlit
 
 06-Ollama简介     视频耗时( 04:00 )
@@ -67,19 +67,19 @@ Windows系统安装Ollama
 <2>.双击提前下载好的OllamaSetup.exe安装包,选择install,然后一直默认安装即可
 <3>, win+R打开终端,输入ollama -v命令查看是否安装成功
 <4>,  ollama run deepseek-r1:1.5b
-      ollama run qwen2:1.5b
+ollama run qwen2:1.5b
 
 模型下载到哪里了?
 默认安装路径: C:\Users\Lenovo\.ollama\models
 
 
 问题1： C:\Users\Administrator>ollama -v
-    Warning: could not connect to a running Ollama instance
-    Warning: client version is 0.9.6
+Warning: could not connect to a running Ollama instance
+Warning: client version is 0.9.6
 解决办法： 需要单独开一个CMD ，执行  执行命令：ollama serve  (原文链接：https://blog.csdn.net/abbiz/article/details/140383148)
 
 问题2： C:\Users\Administrator>ollama run deepseek-r1:1.5b
-    Error: ollama server not responding - timed out waiting for server to start
+Error: ollama server not responding - timed out waiting for server to start
 解决办法： 需要单独开一个CMD ，执行  执行命令：ollama serve  (原文链接：https://blog.csdn.net/abbiz/article/details/140383148)
 
 <5>, Ctrl + D : 退出cmd的"提问聊天"
@@ -107,16 +107,16 @@ Chatbox 安装：
 学习笔记:
 <1>，WSL（Windows Subsystem for Linux）是Win10系统推出的全新功能，让我们可以在Windows环境下获得绝佳的Linux操作系统体验。可以在Linux环境下直接使用宿主机的CPU、内存、显卡等硬件，提供比传统虚拟机更好的硬件性能。,
 <2>，简而言之：
-  Windows10/11的WSL功能，可以无需单独虚拟一套硬件设备
-  就可以直接使用主机的物理硬件，构建Linux操作系统
-  并不会影响Windows系统本身的运行
+Windows10/11的WSL功能，可以无需单独虚拟一套硬件设备
+就可以直接使用主机的物理硬件，构建Linux操作系统
+并不会影响Windows系统本身的运行
 <3>，部署 WSL(Ubuntu)
 <3.1>开启 WSL(Ubuntu)： 控制面板 - 程序和功能 - 启用或关闭windows功能 - 勾选"适用于linux的windows子系统" - 立刻重新启动电脑
 <3.2>安装WSL的操作系统: 打开Windows应用商店(MicroSoft Store) - 搜索Ubuntu - 第一个"Ubuntu" - 获取 和 安装
 <3.3> 点击"打开"按钮
-    输入用户名用以创建一个用户：itheima
-    输入两次密码确认（注意，输入密码没有反馈，不用理会，正常输入即可）：123456
-    注意： 可能之前安装过 Ubuntu，所以当下没有让设置用户名 和 密码 (所以，用户名 和 密码 不是  itheima  / 123456 )
+输入用户名用以创建一个用户：itheima
+输入两次密码确认（注意，输入密码没有反馈，不用理会，正常输入即可）：123456
+注意： 可能之前安装过 Ubuntu，所以当下没有让设置用户名 和 密码 (所以，用户名 和 密码 不是  itheima  / 123456 )
 
 完成以上三步，就得到了 一个可用的 WSL(Ubuntu) 操作系统环境
 <4> 安装Windows Terminal软件
@@ -131,13 +131,13 @@ Error: 0x8007019e ?????? Linux ? Windows ????????? ?wsl.exe --install? ?????
 ?????????? https://aka.ms/wslinstall
 Press any key to continue...
 解决办法:  C:\Windows\System32> wsl -l -v   (该指令的效果如下:
-    适用于 Linux 的 Windows 子系统必须更新到最新版本才能继续。可通过运行 “wsl.exe --update” 进行更新。
-    正在下载: 适用于 Linux 的 Windows 子系统 2.5.9 )
+适用于 Linux 的 Windows 子系统必须更新到最新版本才能继续。可通过运行 “wsl.exe --update” 进行更新。
+正在下载: 适用于 Linux 的 Windows 子系统 2.5.9 )
 
 12-Linux部署Ollama    视频耗时( 21:08 )
 学习笔记:
 1, CUDA是英伟达（NVIDIA）推出的一种并行计算平台和编程模型。
-   它允许开发者利用英伟达 GPU（图形处理单元）的强大计算能力来加速计算密集型任务，而不仅仅是用于图形渲染。
+它允许开发者利用英伟达 GPU（图形处理单元）的强大计算能力来加速计算密集型任务，而不仅仅是用于图形渲染。
 注意: 大模型是计算密集型任务
 2， 验证CUDA是否可用
 WSL在安装好Ubuntu后，自动安装了显卡驱动以及CUDA，可以通过命令：nvidia-smi验证
@@ -146,11 +146,63 @@ WSL在安装好Ubuntu后，自动安装了显卡驱动以及CUDA，可以通过�
 可以看到，只需要一行命令( curl -fsSL https://ollama.com/install.sh | sh )，即可在Linux系统中部署Ollama
 注意: 一键直接安装很容易失败（网络）,所以 采用手动安装的模式( Manual install instructions )
 3.2 手动安装的模式: 下载Ollama Linux系统安装包：https://ollama.com/download/ollama-linux-amd64.tgz
-    在课程资料中，已经为大家提供好了，大家可以从课程资料中得到安装包
+在课程资料中，已经为大家提供好了，大家可以从课程资料中得到安装包
+3.3 , 将ollama-linux-amd64.tgz复制到当前的home目录中:   cp ollama-linux-amd64.tgz  ~/
+3.4 , 解压Ollama到/usr文件夹 ：    sudo tar -xvf ollama-linux-amd64.tgz -C /usr
+
 
 ollama serve： 前台启动ollama， 关闭窗口 或 Ctrl+C 会 停止
-ollama serve： 后台静默启动ollama
 
+ollama serve： 后台静默启动ollama
+1，添加用户(ollama) 和 将ollama添加到用户组
+创建Ollama运行所用用户:
+sudo useradd -r -s /bin/false -U -m -d /usr/share/ollama ollama
+将ollama添加到ollama用户组:
+sudo usermod -a -G ollama $(whoami)
+
+    注意： 指定的home目录：  root@WIN-7MT1R5NQOS1:~# cd /usr/share/ollama/
+
+    2. 配置Ollama为系统服务，方便启动、停止
+    创建新文件： sudo touch /etc/systemd/system/ollama.service
+    将下面内容保存到上述文件内
+
+    [Unit]
+    Description=Ollama Service
+    After=network-online.target
+
+    [Service]
+    ExecStart=/usr/bin/ollama serve
+    User=ollama
+    Group=ollama
+    Restart=always
+    RestartSec=3
+    Environment="PATH=$PATH"
+
+    [Install]
+    WantedBy=multi-user.target
+
+    3,执行如下命令生效
+    sudo systemctl daemon-reload
+
+    4,命令使用
+    sudo systemctl enable ollama	开启ollama开机自启
+    sudo systemctl disable ollama	关闭ollama开机自启
+    sudo systemctl start ollama	启动ollma
+    sudo systemctl status ollama	查看ollama运行状态
+    sudo systemctl stop ollama	停止ollama
+
+    7. 启动Ollama查看运行状态
+    sudo systemctl start ollama
+    sudo systemctl status ollama
+    8. 下载模型文件（或第一次启动模型的时候，也会自动下载）
+    ollama pull deepseek-r1:7b
+    ollama pull qwen2:7b
+    9. 在命令启动模型使用
+    ollama run deepseek-r1:7b
+
+
+
+ollama -v： 查看当前的版本
 问题:
 ls: cannot access 'd': Input/output error
 ls: cannot access 'c': Input/output error
@@ -159,11 +211,25 @@ d????????? ? ?    ?      ?            ? c
 d????????? ? ?    ?      ?            ? d
 drwxrwxrwt 2 root root  60 Jul 13 11:13 wsl
 drwxrwxrwt 7 root root 300 Jul 13 11:14 wslg
+解决办法:
+在WSL中尝试重新挂载驱动器
+- 在WSL终端中，先卸载有问题的挂载点，然后重新挂载：
+  sudo umount /mnt/c
+  sudo umount /mnt/d
+  然后重新挂载：
+  sudo mount -t drvfs C: /mnt/c
+  sudo mount -t drvfs D: /mnt/d
 
-
+常见指令:
+cd ：回到当前 home 目录中
+ls -a : 可以查看隐藏目录
+ollama pull deepseek-r1:1.5b  下载文件
+模型文件存放目录: cd /usr/share/ollama/.ollama/models/blobs       ( ls -h : 看文件最大的文件)
+ollama -h : 帮助指令
 
 13-Linux部署Python开发环境    视频耗时( 10:46 )
 学习笔记:
+看到第10分钟 - 下载文件中？？？
 
 14-Ollama基础Python代码       视频耗时( 10:46 )
 学习笔记:
