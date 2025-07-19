@@ -521,12 +521,71 @@ client对象提供的操作API有
 
 15-Streamlit的基础API使用     视频耗时( 17:33 )
 学习笔记:
+1， Streamlit自带了一个示例程序，我们可以执行：streamlit hello  启动
+2，导包
+我们使用少量的Streamlit API即可开发出聊天WEB页面。
+导包：import streamlit as st
+3.总结
+Streamlit是一个Python框架库，可以快速构建可交互的网页。
+构建交互网页常用API有：
+title，显示标题
+write，显示段落文本
+diviler，显示分割线
+chat_input，聊天输入框
+spinner，等待提示
+chat_message，消息容器
+chat_message.markdown，以markdown形式展示内容
+Streamlit代码运行：streamlit run xxx.py
+Streamlit运行后自动打开网页，自动无限循环执行用户代码
+
 
 16-Streamlit开发对话网页      视频耗时( 23:02 )
 学习笔记:
+以下是基础代码: 
+
+import time
+import streamlit as st
+
+if "count" not in st.session_state:
+st.session_state["count"] = 1
+
+# 给与一个标题
+st.title("测试标题")
+
+# 分割线
+st.divider()
+
+# 消息输入框
+prompt = st.chat_input("请输入你的问题：")
+
+# 消息容器
+if prompt:
+# user、assistant
+st.chat_message("user").markdown(prompt)
+
+    # AI的回答
+    with st.spinner("思考中..."):
+        time.sleep(1)
+        st.chat_message("assistant").markdown(f"我不会:{st.session_state['count']}")
+        st.session_state['count'] = st.session_state['count'] + 1
+
+
 
 17-Ollama&Streamlit开发聊天机器人界面     视频耗时( 11:10 )
 学习笔记:
+
+tips：
+1，清空容器
+# 使用 st.empty() 创建占位容器
+placeholder = st.empty()
+# 更新内容时先清除容器
+def safe_update():
+placeholder.empty()  # 关键：先清空再渲染
+with placeholder.container():
+st.write("新内容")
+# 触发更新
+if st.button("更新"):
+safe_update()
 
 
 
