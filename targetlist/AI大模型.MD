@@ -349,9 +349,77 @@ IDE PyCharm内置WSL的支持，可以将Python解释器程序直接连接到WSL
         source ~/streamlit_venv/bin/activate  # 激活环境
         pip install streamlit                # 在虚拟环境中安装
 
-问题: import streamlit as st 时报错
+问题: import streamlit as st 时报错 (为什么 streamlit 安装成功了，但是在PyCharm 的代码中  import streamlit as st  会报导包失败呢?)
 Installing packages failed Installing packages: error occurred
-解决办法: 
+解决办法:🟢 推荐方案：创建虚拟环境（新手友好）
+1,打开终端（保持当前窗口就行）
+2,创建专属环境（相当于给你的项目建个独立房间）：
+ python -m venv myenv  # 创建名为 myenv 的虚拟环境
+3.进入这个环境：
+source myenv/bin/activate  # 激活环境
+4，在专属环境里安装：
+pip install streamlit -i https://mirrors.aliyun.com/pypi/simple/
+5，测试是否成功：
+ python -c "import streamlit; print('安装成功啦！')"
+
+注意： 
+1，📝 使用虚拟环境后的操作指南
+每次使用时，先激活环境： source myenv/bin/activate
+2，在 PyCharm 中设置虚拟环境：
+打开 PyCharm
+右下角点击当前 Python 版本
+选择「添加解释器」→「现有环境」
+找到 myenv/bin/python 文件
+点击「确定」
+3， 创建测试文件 test.py：
+import streamlit as st
+st.title("恭喜AI新手！")
+st.write("你成功解决了安装问题🎉")
+4， 运行：
+右键点击文件 → Run 'test'
+等待浏览器自动打开显示结果
+
+🌟 给新手的贴心提示:
+1,虚拟环境就像"游戏副本"，安装任何新包前都要先 source myenv/bin/activate
+2,看到 (myenv) 前缀表示在安全环境里
+3,关闭终端后下次使用需要重新激活
+
+问题:
+/home/dhy/py_code/learn_ai/myenv/bin/python /home/dhy/py_code/learn_ai/test.py
+2025-07-19 18:04:12.414 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-07-19 18:04:12.432
+Warning: to view this Streamlit app on a browser, run it with the following
+command:
+    streamlit run /home/dhy/py_code/learn_ai/test.py [ARGUMENTS]
+2025-07-19 18:04:12.432 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-07-19 18:04:12.432 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-07-19 18:04:12.432 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-07-19 18:04:12.432 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-07-19 18:04:12.432 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+Process finished with exit code 0
+解决:
+方法一: 方法1：通过终端命令运行（推荐）
+其实，在 打开 PyCharm 的 Terminal（终端）: streamlit run test.py  (是正常的，查看网站   Local URL: http://localhost:8501
+Network URL: http://172.18.121.248:8501
+)
+
+方法2：配置 PyCharm 的运行方式
+1,在 PyCharm 顶部菜单：Run → Edit Configurations
+2,点击左上角 + 号 → 选择 Python
+3,按这样配置：
+    Script path: 选择 streamlit 的位置（在 myenv/bin/streamlit）
+    Parameters: 输入 run test.py
+    Working directory: 选择你的项目文件夹 (我的目录:  /home/dhy/py_code/learn_ai)
+4,点击 Apply → OK
+5,现在可以点击绿色三角按钮运行了
+
+
+
+
+
+
+
+
 
 Tips: 
 1, 要确认Streamlit包是否已安装，可通过以下方法验证：
@@ -376,8 +444,61 @@ print(streamlit.__version__)
 2, 打开cmd窗口使用pip list查看pip的版本是多少，pycharm也可以这样查询。
 然后使用 python -m pip install --upgrade pip 这行命令对pip进行升级
 
+3, 怎么卸载 streamlit
+以下是卸载 Streamlit 的完整操作指南：
 
-3, 检查已安装包列表： pip list | grep streamlit
+1. 标准卸载方法（推荐）
+   pip uninstall streamlit
+执行后会提示确认，输入 y 完成卸载。
+适用场景‌：通过 pip 安装的常规卸载。
+2. 彻底清除残留文件
+若需完全清理：
+# 查找安装路径
+pip show streamlit | grep Location
+# 进入包目录（示例路径）
+cd /usr/local/lib/python3.12/site-packages/
+# 删除相关文件
+rm -rf streamlit* __pycache__/streamlit*
+同时清理用户目录配置文件：
+rm -rf ~/.streamlit/   # 配置文件
+rm -rf ~/.cache/streamlit/  # 缓存文件
+3. 虚拟环境卸载方案
+若安装在虚拟环境中：
+# 激活环境
+source /path/to/venv/bin/activate
+# 卸载包
+pip uninstall streamlit
+# 彻底删除环境（可选）
+deactivate
+rm -rf /path/to/venv
+4. Windows 系统特殊处理
+通过控制面板卸载：
+Win+R 输入 appwiz.cpl
+找到 Python 相关条目
+选择 卸载 或 修改
+同时删除：
+C:\Users\<用户名>\AppData\Local\streamlit
+C:\Users\<用户名>\AppData\Roaming\streamlit
+验证卸载效果
+pip list | grep streamlit  # 应无输出
+streamlit --version        # 应显示"command not found"
+
+注意‌：
+系统级安装需 sudo 权限
+macOS/Linux 残留路径：~/Library/Application Support/Steam/（仅当通过 Steam 安装时）
+推荐优先使用虚拟环境避免系统污染
+
+
+4, 检查已安装包列表： pip list | grep streamlit
+
+5, 安装 Altair 和 Pandas
+pip install pandas
+pip install altair
+建议同时安装示例数据集包： pip install vega_datasets
+✅ 验证安装：
+import pandas as pd
+import altair as alt
+print(pd.__version__, alt.__version__)
 
 
 14-Ollama基础Python代码       视频耗时( 10:46 )
