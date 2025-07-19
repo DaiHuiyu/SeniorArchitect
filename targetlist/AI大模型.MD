@@ -226,10 +226,159 @@ ls -a : 可以查看隐藏目录
 ollama pull deepseek-r1:1.5b  下载文件
 模型文件存放目录: cd /usr/share/ollama/.ollama/models/blobs       ( ls -h : 看文件最大的文件)
 ollama -h : 帮助指令
+mkdir learn_ai : 创建文件夹
+
 
 13-Linux部署Python开发环境    视频耗时( 10:46 )
 学习笔记:
-看到第10分钟 - 下载文件中？？？
+
+命令使用
+sudo systemctl enable ollama	开启ollama开机自启
+sudo systemctl disable ollama	关闭ollama开机自启
+sudo systemctl start ollama	启动ollma
+sudo systemctl status ollama	查看ollama运行状态
+sudo systemctl stop ollama	停止ollama
+
+
+Python所需库的安装
+WSL（Ubuntu）内置了Python（版本3.8），所以无需部署Python，但如果需要编写代码调用Ollama，需要安装Ollama库。
+1. 安装pip工具
+   sudo apt install python3-pip
+2. 验证pip的使用
+   pip -V   注意V是大写字母
+3. 安装ollama库(用于Python调用Ollama）
+   pip install ollama
+4. 安装Streamlit库（用于Python开发对话页面）
+   pip install streamlit
+
+
+问题:
+root@WIN-7MT1R5NQOS1:~# pip install ollama
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+python3-xyz, where xyz is the package you are trying to
+install.
+
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+
+    If you wish to install a non-Debian packaged Python application,
+    it may be easiest to use pipx install xyz, which will manage a
+    virtual environment for you. Make sure you have pipx installed.
+
+    See /usr/share/doc/python3.12/README.venv for more information.
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.  
+
+解决办法:  使用虚拟环境（推荐）：
+# 安装虚拟环境工具
+sudo apt install python3-venv
+# 创建虚拟环境
+python3 -m venv myenv
+# 激活虚拟环境
+source myenv/bin/activate
+# 在虚拟环境中安装
+pip install ollama
+
+
+问题: Traceback (most recent call last):
+File "/home/dhy/py_code/learn_ai/test.py", line 2, in <module>
+import streamlit as st
+ModuleNotFoundError: No module named 'streamlit'  什么意思 怎么解决
+
+原因： 这个错误 ModuleNotFoundError: No module named 'streamlit' 表示 Python 找不到 Streamlit 库，通常是因为：
+错误原因
+未安装 Streamlit：你还没有在 Python 环境中安装 Streamlit
+安装在错误的环境：可能安装到了系统 Python 而非你当前使用的环境
+虚拟环境未激活：如果你在虚拟环境中安装了 Streamlit，但运行脚本时未激活该环境
+Python 解释器路径问题：IDE 或终端使用了错误的 Python 解释器
+
+解决办法： 方法 1：在正确环境中安装 Streamlit
+# 1. 创建并激活虚拟环境（避免系统冲突）
+python3 -m venv streamlit-env
+source streamlit-env/bin/activate  # Linux/Mac
+# streamlit-env\Scripts\activate   # Windows
+# 2. 安装 Streamlit
+pip install streamlit
+# 3. 验证安装
+python -c "import streamlit as st ; print(st.__version__)"
+
+
+
+PyCharm连接WSL（Ubuntu）:
+IDE PyCharm内置WSL的支持，可以将Python解释器程序直接连接到WSL内。
+实现：用Windows的PyCharm，在Linux上写代码，并在Linux上运行。
+
+
+关于import Streamlit 报错 no moudle named ‘Streamilt‘
+解决办法1(没效果): root@WIN-7MT1R5NQOS1:~# pip install streamlit
+        但是报如下错误:
+        error: externally-managed-environment
+        
+        × This environment is externally managed
+        ╰─> To install Python packages system-wide, try apt install
+        python3-xyz, where xyz is the package you are trying to
+        install.
+        
+            If you wish to install a non-Debian-packaged Python package,
+            create a virtual environment using python3 -m venv path/to/venv.
+            Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+            sure you have python3-full installed.
+        
+            If you wish to install a non-Debian packaged Python application,
+            it may be easiest to use pipx install xyz, which will manage a
+            virtual environment for you. Make sure you have pipx installed.
+        
+            See /usr/share/doc/python3.12/README.venv for more information.
+        
+        note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-package
+解决办法2(没效果):
+        遇到externally-managed-environment错误时，说明当前Python环境受系统保护，直接通过pip安装可能影响系统稳定性‌12。以下是几种解决方案：
+        ‌推荐方案：创建虚拟环境‌
+        执行 python3 -m venv /path/to/venv 创建独立环境‌
+        激活环境后使用 /path/to/venv/bin/pip install streamlit 安装‌
+        优点：完全隔离，不影响系统环境‌
+解决办法3(成功):
+        # 创建虚拟环境
+        python3 -m venv ~/streamlit_venv
+        source ~/streamlit_venv/bin/activate  # 激活环境
+        pip install streamlit                # 在虚拟环境中安装
+
+问题: import streamlit as st 时报错
+Installing packages failed Installing packages: error occurred
+解决办法: 
+
+Tips: 
+1, 要确认Streamlit包是否已安装，可通过以下方法验证：
+解答:
+要确认Streamlit包是否已安装，可通过以下方法验证：
+<1>命令行检查‌
+执行pip show streamlit，若显示版本信息则已安装‌
+或运行streamlit --version，输出版本号即表示成功安装‌
+<2>交互式验证‌
+在Python环境中输入：
+import streamlit
+print(streamlit.__version__)
+无报错且输出版本号即正常‌
+<3>运行测试应用‌
+执行streamlit hello，若自动打开浏览器并显示欢迎页面则安装成功‌
+<4>PyCharm环境检查‌
+在IDE的Python Interpreter设置中查看已安装包列表‌
+若使用虚拟环境，需先激活对应环境再检查‌
+
+若上述方法均未检测到，建议通过pip install streamlit重新安装‌。
+
+2, 打开cmd窗口使用pip list查看pip的版本是多少，pycharm也可以这样查询。
+然后使用 python -m pip install --upgrade pip 这行命令对pip进行升级
+
+
+3, 检查已安装包列表： pip list | grep streamlit
+
 
 14-Ollama基础Python代码       视频耗时( 10:46 )
 学习笔记:
