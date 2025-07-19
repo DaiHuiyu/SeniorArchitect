@@ -413,14 +413,6 @@ Network URL: http://172.18.121.248:8501
 4,点击 Apply → OK
 5,现在可以点击绿色三角按钮运行了
 
-
-
-
-
-
-
-
-
 Tips: 
 1, 要确认Streamlit包是否已安装，可通过以下方法验证：
 解答:
@@ -503,6 +495,29 @@ print(pd.__version__, alt.__version__)
 
 14-Ollama基础Python代码       视频耗时( 10:46 )
 学习笔记:
+1,首先确认Ollama已经启动（sudo systemctl start ollama)
+使用Python操作Ollama，最主要的一步是获得Ollama客户端对象，使用如下代码
+    # 获得ollama的客户端对象
+    client = ollama.Client(host="http://localhost:11434")
+当有了client对象后，可以使用client对象提供的方法，完成对Ollama的操作
+
+2, Ollama Python库基础API
+client对象提供的操作API有
+   1. list方法，列出可用模型 clent.list()
+   2. show 方法，显示指定模型的详细信息 client.show('deepseek-r1:7b')
+   3. ps方法，显示当前正在运行的模型 client.ps()
+   4. chat方法，与模型进行对话，示例代码
+      response = client.chat(model='deepseek-r1:7b', messages=[{'role': 'user', 'content': '你是谁'}])
+      print(response['message']['content'])
+
+3， Ollama Python库基础API
+如果使用Ollama库出现问题，可以对其进行异常捕获，捕获异常是：ollama.ResponseError
+示例
+    model = 'xxx_model'
+    try:
+        response=ollama.chat(model)
+    except ollama.ResponseError as e:
+        print('Error:',e.error)
 
 15-Streamlit的基础API使用     视频耗时( 17:33 )
 学习笔记:
