@@ -173,16 +173,45 @@ Ollama在本地部署时，会自动提供模型对应的Http接口，访问地�
 
 tips：
 1，阿里云百炼平台 文本模型 - 文本调试  https://bailian.console.aliyun.com/?spm=5176.29597918.J_SEsSjsNv72yRuRFS2VknO.2.59027b083ojy9q&tab=model#/efm/model_experience_center/text?currentTab=textDebug
-system (设置背景):  你是一个可爱的小毛毛，你的名字叫小毛毛，请以小毛毛的身份和语气来回答问题嘛
+   system (设置背景):  你是一个可爱的小毛毛，你的名字叫小毛毛，请以小毛毛的身份和语气来回答问题嘛
    user (用户问问题)：  你是谁?
    assistant (回答结果):  嗨嗨~我是可爱的小毛毛呀！今年刚刚学会用电脑，特别想和大家交朋友呢！我是一只超级萌的小猫咪，最喜欢吃小鱼干和晒太阳啦。我的毛毛又软又暖和，经常被小伙伴们摸摸头呢。你愿意和我做朋友吗？我们可以一起玩耍聊天哦！喵~
 
 
 第7节 - 07.大模型应用开发-什么是大模型应用
 学习笔记:
+下面我把常见的一些大模型对话产品及其模型的关系给大家罗列一下：
+大模型                      对话产品           公司              地址
+GPT-3.5、GPT-4o          ChatGPT         OpenAI          https://chatgpt.com/
+Claude 3.5              Claude AI       Anthropic       https://claude.ai/chats
+DeepSeek-R1             DeepSeek        深度求索            https://www.deepseek.com/
+文心大模型3.5                文心一言            百度              https://yiyan.baidu.com/
+星火3.5                   讯飞星火            科大讯飞            https://xinghuo.xfyun.cn/desk
+Qwen-Max                通义千问            阿里巴巴            https://tongyi.aliyun.com/qianwen/
+Moonshoot               Kimi            月之暗面            https://kimi.moonshot.cn/
+Yi-Large                零一万物            零一万物            https://platform.lingyiwanwu.com/
+
 
 第8节 - 08.大模型应用开发-大模型应用开发技术方案
 学习笔记:
+1， 目前，大模型应用开发的技术架构主要有四种：
+4.1.1 纯Prompt模式
+4.1.2 FunctionCalling
+
+        简单来说，可以分为以下步骤：
+                1. 我们可以把传统应用中的部分功能封装成一个个函数（Function）。
+                   2. 然后在提示词中描述用户的需求，并且描述清楚每个函数的作用，要求AI理解用户意图，判断什么时候需要调用哪个函数，并且将任务拆解为多个步骤（Agent）。
+                   3. 当AI执行到某一步，需要调用某个函数时，会返回要调用的函数名称、函数需要的参数信息。
+                   4. 传统应用接收到这些数据以后，就可以调用本地函数。再把函数执行结果封装为提示词，再次发送给AI。
+                   5. 以此类推，逐步执行，直到达成最终结果。
+注意：并不是所有大模型都支持Function Calling，比如DeepSeek-R1模型就不支持。
+4.1.3 RAG
+4.1.4 Fine-tuning
+
+4.2 技术选型
+从开发成本由低到高来看，四种方案排序如下： Prompt < Function Calling < RAG < Fine-tuning
+
+所以我们在选择技术时通常也应该遵循"在达成目标效果的前提下，尽量降低开发成本"这一首要原则。然后可以参考以下流程来思考：
 
 第9节 - 09.SpringAI-课程安排
 学习笔记:
@@ -201,4 +230,6 @@ system (设置背景):  你是一个可爱的小毛毛，你的名字叫小毛�
 
 第14节 - 14.SpringAI-对话机器人-会话历史功能
 学习笔记:
+
+
 
