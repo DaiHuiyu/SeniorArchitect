@@ -69,6 +69,7 @@ Windows系统安装Ollama
 <4>,  ollama run deepseek-r1:1.5b
 ollama run qwen2:1.5b
 
+
 模型下载到哪里了?
 默认安装路径: C:\Users\Lenovo\.ollama\models
 

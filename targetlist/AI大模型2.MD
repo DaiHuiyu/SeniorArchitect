@@ -30,9 +30,148 @@ SiliconCloud    硅基流动     https://siliconflow.cn/zh-cn/siliconcloud
 学习笔记:
 模型部署-本地部署 最简单的一种方案是使用ollama, 官网地址是: https://ollama.com
 
+Tips:
+1,  ollama --help
+2, deepseek-r1
+        1.5b  -- 1.1GB(指的是显存)
+        7b  -- 4.7GB(指的是显存)
+        8b  -- 4.9GB(指的是显存)
+        14b  -- 9.0GB(指的是显存)
+        32b  -- 20GB(指的是显存)
+        70b  -- 43GB(指的是显存)
+        671b  -- 404GB(指的是显存， 这个 671b就是所说的 满血版 ) 
+3， ollama ps ： 查看运行中的大模型
+启动大模型
+root@WIN-7MT1R5NQOS1:~# ollama run deepseek-r1:1.5b
+root@WIN-7MT1R5NQOS1:~# ollama run qwen2:1.5b
+
+4,  启动 ollama
+root@WIN-7MT1R5NQOS1:~# sudo systemctl start ollama
+root@WIN-7MT1R5NQOS1:~# sudo systemctl status ollama
 
 第6节 - 06.大模型应用开发-调用大模型
 学习笔记:
+问题: streamlit run deepseek_model.py 报如下错误?
+开放人工智能。AuthenticationError： 错误代码： 401 - {'error'： {'message'： '身份验证失败， 您的 api 密钥： ****Key> 无效'， 'type'： 'authentication_error'， 'param'： 无， 'code'： 'invalid_request_error'}}
+
+        openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Authentication Fails, Your api key: ****Key> is invalid', 'type': 'authentication_error', 'param': None, 'code': 'invalid_request_error'}}
+        
+        File "/home/dhy/py_code/learn_ai/springai_deepseek/deepseek_model.py", line 8, in <module>
+        response = client.chat.completions.create(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/home/dhy/py_code/learn_ai/myenv/lib/python3.12/site-packages/openai/_utils/_utils.py", line 287, in wrapper
+        return func(*args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^
+        File "/home/dhy/py_code/learn_ai/myenv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 1087, in create
+        return self._post(
+        ^^^^^^^^^^^
+        File "/home/dhy/py_code/learn_ai/myenv/lib/python3.12/site-packages/openai/_base_client.py", line 1256, in post
+        return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/home/dhy/py_code/learn_ai/myenv/lib/python3.12/site-packages/openai/_base_client.py", line 1044, in request
+        raise self._make_status_error_from_response(err.response) from None
+解决:
+第一步：检查并修复 API 密钥
+1，获取正确的 DeepSeek 密钥：
+
+        登录 DeepSeek 控制台(登录 DeepSeek 开放平台)
+        
+        在 API Keys 中创建或复制有效密钥（以 sk- 开头） ： willdeepseek   sk-fbbc19ef3c0c41a38c7ee9c5fb67037f
+
+2，安全传递密钥（任选一种方式）：
+# 方法1：通过环境变量传递（推荐）
+        import os
+        from openai import OpenAI
+        
+        client = OpenAI(
+        api_key=os.environ["DEEPSEEK_API_KEY"],  # 确保已提前设置环境变量
+        base_url="https://api.deepseek.com/v1"    # DeepSeek 专属地址
+        )
+
+# 在终端设置环境变量（临时）
+export DEEPSEEK_API_KEY='sk-你的真实密钥'
+
+# 永久设置：写入 ~/.bashrc 或 ~/.zshrc
+echo "export DEEPSEEK_API_KEY='sk-xxxx'" >> ~/.bashrc
+source ~/.bashrc
+
+# 方法2：直接写在代码中（仅测试用，勿提交到Git！）
+client = OpenAI(
+api_key="sk-你的真实密钥",  # 直接替换这里
+base_url="https://api.deepseek.com/v1")
+
+第二步：验证密钥有效性
+在终端运行快速测试：
+
+        curl https://api.deepseek.com/v1/models \
+        -H "Authorization: Bearer $DEEPSEEK_API_KEY"
+加上 sk-fbbc19ef3c0c41a38c7ee9c5fb67037f 就是如下指令
+
+        curl https://api.deepseek.com/v1/models \
+        -H "Authorization: Bearer sk-fbbc19ef3c0c41a38c7ee9c5fb67037f"
+✅ 成功响应：返回模型列表（如 deepseek-chat）
+❌ 失败响应：检查错误信息
+
+第三步：检查代码关键配置
+确保代码包含 DeepSeek 专属参数：
+
+        from openai import OpenAI
+        
+        client = OpenAI(
+        api_key="sk-...",              # 替换为你的 DeepSeek 密钥
+        base_url="https://api.deepseek.com/v1"  # ⚠️ 必须指定此地址！
+        )
+        
+        response = client.chat.completions.create(
+        model="deepseek-chat",         # 指定 DeepSeek 模型
+        messages=[{"role": "user", "content": "你好"}]
+        )
+第四步：账户排查
+1，确认已注册 DeepSeek 平台 并开通 API 权限
+
+        2，检查账户额度是否充足（免费额度通常够用）
+完整代码示例
+
+        from openai import OpenAI
+
+        # 从环境变量读取密钥（推荐）
+        client = OpenAI(
+        api_key="sk-fbbc19ef3c0c41a38c7ee9c5fb67037f",
+        base_url="https://api.deepseek.com/v1"  # DeepSeek 专属端点
+        )
+        
+        try:
+        response = client.chat.completions.create(
+        model="deepseek-chat",
+        messages=[{"role": "user", "content": "1+2等于几？"}]
+        )
+        print(response.choices[0].message.content)
+        except Exception as e:
+        print(f"错误: {e}")
+
+💡 关键提醒：
+DeepSeek 与 OpenAI 密钥和接口地址不通用
+
+        必须设置 base_url="https://api.deepseek.com/v1"
+        
+        模型名用 deepseek-chat 或 deepseek-coder
+
+
+Ollama在本地部署时，会自动提供模型对应的Http接口，访问地址是：http://localhost:11434/api/chat
+请求参数如下(用postman调用):
+
+        {
+        "model":"deepseek-r1:1.5b",
+        "messages":[
+        {
+        "role":"user",
+        "content":"你好，你是谁?"
+        }
+        ],
+        "steam": false
+        }
+返回报文:
+
 
 第7节 - 07.大模型应用开发-什么是大模型应用
 学习笔记:
