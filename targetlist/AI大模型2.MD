@@ -76,7 +76,7 @@ root@WIN-7MT1R5NQOS1:~# sudo systemctl status ollama
 
         登录 DeepSeek 控制台(登录 DeepSeek 开放平台)
         
-        在 API Keys 中创建或复制有效密钥（以 sk- 开头） ： willdeepseek   sk-fbbc19ef3c0c41a38c7ee9c5fb67037f
+        在 API Keys 中创建或复制有效密钥（以 sk- 开头） ： willdeepseek   sk-xxx
 
 2，安全传递密钥（任选一种方式）：
 # 方法1：通过环境变量传递（推荐）
@@ -105,10 +105,10 @@ base_url="https://api.deepseek.com/v1")
 
         curl https://api.deepseek.com/v1/models \
         -H "Authorization: Bearer $DEEPSEEK_API_KEY"
-加上 sk-fbbc19ef3c0c41a38c7ee9c5fb67037f 就是如下指令
+加上 sk-xxx 就是如下指令
 
         curl https://api.deepseek.com/v1/models \
-        -H "Authorization: Bearer sk-fbbc19ef3c0c41a38c7ee9c5fb67037f"
+        -H "Authorization: Bearer sk-xxx"
 ✅ 成功响应：返回模型列表（如 deepseek-chat）
 ❌ 失败响应：检查错误信息
 
@@ -136,7 +136,7 @@ base_url="https://api.deepseek.com/v1")
 
         # 从环境变量读取密钥（推荐）
         client = OpenAI(
-        api_key="sk-fbbc19ef3c0c41a38c7ee9c5fb67037f",
+        api_key="sk-xxx",
         base_url="https://api.deepseek.com/v1"  # DeepSeek 专属端点
         )
         
@@ -215,6 +215,8 @@ Yi-Large                零一万物            零一万物            https://
 
 第9节 - 09.SpringAI-课程安排
 学习笔记:
+1，Spring AI (jdk 17 以上) 和 LangChain4j  (jdk 8 以上)
+老师推荐用:Spring AI (jdk 17 以上)
 
 第10节 - 10.SpringAI-对话机器人-快速入门
 学习笔记:
@@ -230,6 +232,4 @@ Yi-Large                零一万物            零一万物            https://
 
 第14节 - 14.SpringAI-对话机器人-会话历史功能
 学习笔记:
-
-
 
