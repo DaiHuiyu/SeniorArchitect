@@ -149,4 +149,38 @@ print(type('125'))
 
 # result = 1 < 2 < 3  # True
 # result = 10 < 20 > 15   # True
-print("result = " , result)
+# print("result = " , result)
+
+## 循环嵌套练习
+### 练习1 ： 打印99乘法表
+# i = 0 
+# while i < 9 :
+#     i +=1
+#     j = 0
+#     while j < i :
+#         j += 1
+#         # print("* ")
+#         # print(i,'*',j,'=',i * j ,"  ",end = '')  # end = '' 代表不换行
+#         print(f"{j}*{i}={i*j}",end = ' ')  # end = '' 代表不换行
+#     print()
+
+### 练习2 : 求 100以内的所有的质数
+### 默认是质数
+# i = 2 # 1不是质数，也不是合数
+# while i <= 100 :
+# 	flag = True
+# 	j = 2 
+# 	while j < i :
+# 	    # print("* ")
+# 	    if i % j == 0 :
+# 	    	# print(i," 不是质数",end = '')  # end = '' 代表不换行
+# 	    	flag = False
+# 	    j += 1
+# 	if flag == True :
+# 		print(i," 是质数")
+# 	# print()
+# 	i +=1
+
+
+# break和continue
+ 
