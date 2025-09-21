@@ -1034,13 +1034,15 @@ while i < 5 :
 学习笔记:
 见: train_chinasofti/python/质数练习优化.py
 
-课时55：小游戏分析_《唐僧大战白骨精》分析   12:42
+课时55：小游戏分析_《唐僧大战白骨精》分析   12:42      Will学习通过
 学习笔记:
+见 train_chinasofti/python/game.py
 
-
-课时56：小游戏开发_游戏的欢迎信息   13:00
+课时56：小游戏开发_游戏的欢迎信息   13:00      Will学习通过
 学习笔记:
+见 train_chinasofti/python/game.py
 
 
-课时57：小游戏开发_完成游戏 29:08
+课时57：小游戏开发_完成游戏 29:08      Will学习通过
 学习笔记:
+见 train_chinasofti/python/game.py
